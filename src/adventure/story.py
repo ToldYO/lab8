@@ -5,6 +5,7 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 from rich.text import Text
 from rich import print as rprint
+import sys
 
 console = Console()
 
@@ -55,7 +56,7 @@ if __name__ == "__main__":
                 padding=(1, 2)
             ))
             console.print("\n[italic cyan]We hope to see you again soon in your next adventure![/italic cyan]")
-            break
+            sys.exit(0)  # Explicitly exit after goodbye message
         
         # Get the result and display in a panel
         result = step(choice, events)
