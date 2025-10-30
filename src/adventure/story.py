@@ -46,10 +46,15 @@ if __name__ == "__main__":
         choice = choice.strip().lower()
         
         if choice == 'exit':
+            # Enhanced goodbye message with rich formatting
             console.print(Panel.fit(
-                "[bold magenta]Thanks for playing! Farewell, adventurer! 🏹[/bold magenta]",
-                border_style="magenta"
+                "[bold magenta]🌟 Thank you for playing Dark Forest Adventure! 🌟\n\n"
+                "Your journey through the enchanted forest was brave and memorable.\n"
+                "May your paths always lead to new adventures! 🏹✨[/bold magenta]",
+                border_style="magenta",
+                padding=(1, 2)
             ))
+            console.print("\n[italic cyan]We hope to see you again soon in your next adventure![/italic cyan]")
             break
         
         # Get the result and display in a panel
