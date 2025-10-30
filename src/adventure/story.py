@@ -9,6 +9,8 @@ import sys
 
 console = Console()
 
+default_message = "You stand still, unsure what to do. The forest swallows you."
+
 def step(choice: str, events):
     random_event = random.choice(events)
 
@@ -17,7 +19,11 @@ def step(choice: str, events):
     elif choice == "right":
         return right_path(random_event)
     else:
+<<<<<<< HEAD
         return "[red]You stand still, unsure what to do. The forest swallows you.[/red]"
+=======
+        return default_message
+>>>>>>> main
 
 def left_path(event):
     return "[yellow]You walk left. " + event + "[/yellow]"
