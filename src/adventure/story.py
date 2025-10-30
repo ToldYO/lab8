@@ -1,5 +1,12 @@
 from adventure.utils import read_events_from_file
 import random
+from rich.console import Console
+from rich.prompt import Prompt
+from rich.panel import Panel
+from rich.text import Text
+from rich import print as rprint
+
+console = Console()
 
 def step(choice: str, events):
     random_event = random.choice(events)
@@ -9,22 +16,46 @@ def step(choice: str, events):
     elif choice == "right":
         return right_path(random_event)
     else:
-        return "You stand still, unsure what to do. The forest swallows you."
+        return "[red]You stand still, unsure what to do. The forest swallows you.[/red]"
 
 def left_path(event):
-    return "You walk left. " + event
+    return "[yellow]You walk left. " + event + "[/yellow]"
 
 def right_path(event):
-    return "You walk right. " + event
+    return "[green]You walk right. " + event + "[/green]"
 
 if __name__ == "__main__":
     events = read_events_from_file('events.txt')
 
-    print("You wake up in a dark forest. You can go left or right.")
+    # Welcome panel with styled text
+    console.print(Panel.fit(
+        "[bold cyan]🌲 Dark Forest Adventure 🌲[/bold cyan]",
+        border_style="green",
+        padding=(1, 2)
+    ))
+    
+    console.print("[bold blue]You wake up in a dark forest. You can go left or right.[/bold blue]")
+    
     while True:
-        choice = input("Which direction do you choose? (left/right/exit): ")
+        # Use rich Prompt for styled input
+        choice = Prompt.ask(
+            "[bold yellow]Which direction do you choose?[/bold yellow]",
+            choices=["left", "right", "exit"],
+            default="left"
+        )
         choice = choice.strip().lower()
+        
         if choice == 'exit':
+            console.print(Panel.fit(
+                "[bold magenta]Thanks for playing! Farewell, adventurer! 🏹[/bold magenta]",
+                border_style="magenta"
+            ))
             break
         
-        print(step(choice, events))
+        # Get the result and display in a panel
+        result = step(choice, events)
+        console.print(Panel(
+            result,
+            title="[bold]Adventure Update[/bold]",
+            border_style="blue" if choice == "left" else "green"
+        ))
